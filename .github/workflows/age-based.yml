@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Print Name and Age
-      run: echo "Name: ${{ github.event.inputs.name }}, Age: ${{ github.event.inputs.age }}"
+      run: echo ${{ github.event.inputs.name }} is under age ${{ github.event.inputs.age }} years old
     - name: Underage Check
       run: echo "User is underage."
 
@@ -27,6 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Print Name and Age
-      run: echo "Name: ${{ github.event.inputs.name }}, Age: ${{ github.event.inputs.age }}"
+      run: echo ${{ github.event.inputs.name }} is adult ${{ github.event.inputs.age }} years old
     - name: Adult Check
       run: echo "User is an adult."
