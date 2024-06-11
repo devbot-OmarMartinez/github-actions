@@ -1,0 +1,32 @@
+name: Age-based Job Dispatcher
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name of the person'
+        required: true
+        type: string
+      age:
+        description: 'Age of the person'
+        required: true
+        type: number
+
+jobs:
+  underage:
+    if: ${{ github.event.inputs.age < 18 }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print Name and Age
+      run: echo "Name: ${{ github.event.inputs.name }}, Age: ${{ github.event.inputs.age }}"
+    - name: Underage Check
+      run: echo "User is underage."
+
+  adult:
+    if: ${{ github.event.inputs.age >= 18 }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print Name and Age
+      run: echo "Name: ${{ github.event.inputs.name }}, Age: ${{ github.event.inputs.age }}"
+    - name: Adult Check
+      run: echo "User is an adult."
