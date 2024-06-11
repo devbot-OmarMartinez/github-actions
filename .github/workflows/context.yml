@@ -1,0 +1,34 @@
+name: Context
+run-name: Example Workflow with Env Context
+
+on:
+  workflow_dispatch:
+
+env:
+  GLOBAL_ENV_VAR: "This is a global environment variable"
+  ANOTHER_GLOBAL_VAR: "Another global variable"
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    env:
+      JOB_ENV_VAR: "This is a job-specific environment variable"
+
+    steps:
+    - name: Print Global Environment Variables
+      run: |
+        echo "GLOBAL_ENV_VAR: $GLOBAL_ENV_VAR"
+        echo "ANOTHER_GLOBAL_VAR: $ANOTHER_GLOBAL_VAR"
+
+    - name: Set Step Environment Variable
+      run: echo "STEP_ENV_VAR=This is a step-specific environment variable" >> $GITHUB_ENV
+
+    - name: Print Job and Step Environment Variables
+      run: |
+        echo "JOB_ENV_VAR: $JOB_ENV_VAR"
+        echo "STEP_ENV_VAR: $STEP_ENV_VAR"
+
+    - name: Set and Use Inline Environment Variable
+      run: |
+        export INLINE_ENV_VAR="This is an inline environment variable"
+        echo "INLINE_ENV_VAR: $INLINE_ENV_VAR"
