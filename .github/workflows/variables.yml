@@ -1,0 +1,12 @@
+name: Variables
+run-name: Example Workflow with Vars
+on:
+    workflow_dispatch:
+jobs:
+    variables-job:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Printing variable from project settings
+          run: echo "Hello ${{ vars.ACTION_VAR_DEVBOT }}, this comes from project setting variables"
+        - name: Printing secret from project settings
+          run: echo "Your password is ${{ secrets.SECRET_PASSWORD }}, this comes from project setting variables"
