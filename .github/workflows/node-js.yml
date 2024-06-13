@@ -5,23 +5,61 @@ on:
   pull_request:
     branches: [ main ]
 jobs:
-  build:
+  # build:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - name: Define variable
+  #     run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v2
+
+  #   - name: Set up Node.js
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: '16'
+
+  #   - name: Install dependencies
+  #     run: npm install
+
+  #   - name: Run the script
+  #     run: node app.js
+  Example-Actions-Job:
+    name: Exploring GitHub Actions
     runs-on: ubuntu-latest
-
     steps:
-    - name: Define variable
-      run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+      # Display the event that triggered the workflow
+      - run: echo "The job was triggered by a ${{ github.event_name }} event."
 
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      # Runner information
+      - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub"
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
+      # Information about the repository and branch
+      - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
-    - name: Install dependencies
-      run: npm install
+      # Use Action located in https://github.com/actions
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
-    - name: Run the script
-      run: node app.js
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+
+      - run: echo "Your repository has been copied to the path ${{ github.workspace }} on the runner."
+
+      - run: echo "The workflow is now ready to test your code on the runner."
+
+      - name: Conditional step when event name is pull request
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "This event is a pull request"
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
+      - name: Setup dotnet on runner
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.x'
+
+      - name: Display dotnet version
+        run: dotnet --version
