@@ -1,9 +1,8 @@
 name: Node.js CI
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  repository_dispatch:
+    types: [run_my_workflow]
+
 jobs:
   # build:
   #   runs-on: ubuntu-latest
@@ -29,6 +28,9 @@ jobs:
     name: Exploring GitHub Actions
     runs-on: ubuntu-latest
     steps:
+      # Client payload
+      - run: echo "The Client payload is ${{ github.event.client_payload.data }}."
+
       # Display the event that triggered the workflow
       - run: echo "The job was triggered by a ${{ github.event_name }} event."
 
